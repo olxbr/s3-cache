@@ -4,7 +4,7 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 
 ## Required input and output arguments
 
-# inputs
+### inputs
 
   * aws-id:
   * aws-key: 
@@ -13,17 +13,17 @@ This action will cache an user specified directory to a remote AWS S3 bucket
   * cache_key:
   * dir-to-cache:
 
-# outputs:
+### outputs:
 
   * operation: retrieving / creation
 
 ## Optional input and output arguments
   
-# inputs
+### inputs
 
   * aws-region: 'us-east-1'
   * zip-filename: 'cache.tar'
-  # dir-to-unzip: './'
+  * dir-to-unzip: './'
     
 ## Secrets the action uses
 
