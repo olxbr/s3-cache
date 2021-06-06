@@ -43,7 +43,7 @@ None
     with:
       aws-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
-      s3-bucket-root: "mobileplatformdata"   
+      s3-bucket-root: "pipelinecache"   
       bucket_dir: "github-cache"
       cache_key: build-${{ runner.os }}-cache-yarn-modules-${{ hashFiles('yarn.lock') }}
       zip-filename: 'custom_cache.tar'
