@@ -39,7 +39,7 @@ None
 ## An example of how to use your action in a workflow
 
 ```
-  - uses: olxbr/actions/s3-cache@v1
+  - uses: olxbr/s3-cache@v1.0
     with:
       aws-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
