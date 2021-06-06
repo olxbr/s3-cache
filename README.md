@@ -38,6 +38,7 @@ None
 
 ## An example of how to use your action in a workflow
 
+```
   - uses: olxbr/actions/s3-cache@v1
     with:
       aws-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -47,3 +48,4 @@ None
       cache_key: build-${{ runner.os }}-cache-yarn-modules-${{ hashFiles('yarn.lock') }}
       zip-filename: 'custom_cache.tar'
       dir-to-cache: 'node_modules' 
+```
