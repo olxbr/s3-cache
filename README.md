@@ -15,7 +15,7 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 
 ### outputs:
 
-  * operation: retrieving / creation
+  * operation: retrieval / creation
 
 ## Optional input and output arguments
   
@@ -28,13 +28,6 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 ## Secrets the action uses
 
 None
-
-## Environment variables the action uses
-
-  * TEMP_AWS_ACCESS_KEY_ID - used to cache previous runner's aws access key id
-  * TEMP_AWS_SECRET_ACCESS_KEY - used to cache previous runner's aws secret access key
-  * AWS_ACCESS_KEY_ID 
-  * AWS_SECRET_ACCESS_KEY 
 
 ## An example of how to use your action in a workflow
 
