@@ -1,5 +1,6 @@
 const fs = require('fs');
 const core = require('@actions/core');
+const mime = require('mime');
 
 class S3Operation {
   constructor(aws, bucket_root, bucket_dir, cache_key, filename) {
