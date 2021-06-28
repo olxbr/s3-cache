@@ -24,7 +24,7 @@ try {
     console.log(`RESULT = ${result.operation}`);
     core.debug(`RESULT = ${result.operation}`);
     core.saveState("operation", result.operation);
-    core.setOutput(result.operation);
+    core.setOutput('operation', result.operation);
   }, function (err) {
     core.error(err);
     core.saveState("operation", "failed")
