@@ -17,6 +17,14 @@ inputs:
     description: 'aws role to assume'
     required: false
     default: ''
+  aws-role-session-name:
+    description: 'aws assumed role session name'
+    required: false
+    default: ''
+  aws-role-external-id:
+    description: 'aws role internal id'
+    required: false
+    default: ''
   s3-bucket-root: # aws bucket
     description: 'aws bucket'
     required: true

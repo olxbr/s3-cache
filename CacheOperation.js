@@ -9,14 +9,19 @@ class CacheOperation {
         this.filename = filename;
         this.bucket = `${bucket_root}`;
         this.key = `${bucket_dir}/${cache_key}/${filename}`;
+        console.log('Cache linha 12')
         this.s3Operation = new S3Operation(connection, bucket_root, bucket_dir, cache_key, filename);
+        console.log('Cache linha 14')
         this.zipOperation = new ZipOperation();
+        console.log('Cache linha 16')
         this.dir_to_cache = dir_to_cache;
         this.dir_to_unzip = dir_to_unzip;
     }
 
     retrieveCache() {
+        console.log('Cache linha 22')
         return new Promise((resolve, reject) => {
+            console.log('Cache linha 24')
             this.s3Operation.pullFile().then((result) => {
                 console.log('Cache file downloaded');
                 this.zipOperation.unzipFile(`./${this.filename}`, this.dir_to_unzip).then((result) => {
@@ -30,9 +35,12 @@ class CacheOperation {
                     reject(err);
                 })
             }, function (err) {
+                console.log('Cache linha 38')
                 if (err.code == 'NoSuchKey') {
+                    console.log('Cache linha 40')
                     resolve({ "operation": "creation"});;
                 } else {
+                    console.log('Cache linha 43')
                     core.error(`Error pushing cache file`);
                     console.log(err, err.stack);
                     reject();

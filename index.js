@@ -10,6 +10,8 @@ try {
   const secret_key = core.getInput('aws-key');
   const region = core.getInput('aws-region');
   const role = core.getInput('aws-role');
+  const roleSessionName = core.getInput('aws-role-session-name');
+  const externalId = core.getInput('aws-role-external-id');
 
   const bucket_root = core.getInput('s3-bucket-root');
   const filename = core.getInput('zip-filename');
@@ -18,26 +20,37 @@ try {
   const dir_to_cache = core.getInput('dir-to-cache');
   const dir_to_unzip = core.getInput('dir-to-unzip');
 
-  
-  const connection = new Authentication(access_id, secret_key, region).login(role);
+  console.log('Input to variables OK')
+  const auth = new Authentication(access_id, secret_key, region)
+  console.log('Index linha 25')
+  auth.login(role, roleSessionName, externalId).then((connection) => {
+    console.log('Index linha 27')
 
-  const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache, dir_to_unzip);
+    console.log('Connection OK');
+    console.log(process.env.AWS_ACCESS_KEY_ID);
+    console.log(process.env.AWS_SECRET_ACCESS_KEY);
+    console.log(process.env.AWS_SESSION_TOKEN);
 
-  cacheOperation.retrieveCache().then((result) => {
-    console.log(`RESULT = ${result.operation}`);
-    core.debug(`RESULT = ${result.operation}`);
-    core.saveState("operation", result.operation);
-    core.setOutput('operation', result.operation);
-  }, function (err) {
-    core.error(err);
-    core.saveState("operation", "failed")
-    core.setFailed(err);
-    process.exit(1);
+    const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache, dir_to_unzip);
+
+    console.log('CacheOperation Object Created');
+
+    cacheOperation.retrieveCache().then((result) => {
+      console.log(`RESULT = ${result.operation}`);
+      core.debug(`RESULT = ${result.operation}`);
+      core.saveState("operation", result.operation);
+      console.log('Save State operation OK');
+      core.setOutput('operation', result.operation);
+    }, function (err) {
+      core.error(err);
+      core.saveState("operation", "failed")
+      core.setFailed(err);
+      process.exit(1);
+    })
   })
-
 } catch (error) {
   core.saveState("operation", "failed")
-  core.setFailed(err);
+  core.setFailed(error);
   console.log(error);
   process.exit(1);
 }
