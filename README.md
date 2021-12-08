@@ -6,12 +6,12 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 
 ### inputs
 
-  * aws-id: AWS Authentication Access Id (please inform it from Github secrets) eg: ${{ secrets.myAccessId }}
-  * aws-key:  AWS Authentication Secret Access Key (please inform it from Github secrets) eg: ${{ secrets.mySecretKey }}
+  * aws-access-key-id: AWS Authentication Access Id (please inform it from Github secrets) eg: ${{ secrets.myAccessId }}
+  * aws-access-key:  AWS Authentication Secret Access Key (please inform it from Github secrets) eg: ${{ secrets.mySecretKey }}
   * s3-bucket-root: eg: 'my-bucket-root' (No need for s3:// prefix)
-  * bucket_dir: Second level bucket directory (eg: 'pipeline-cache')
-  * cache_key: Third level bucket directory. Suggestion: use hashFiles() github function. eg: hashFiles('./yarn.lock')
-  * dir-to-cache: directory's path to cache eg: './node_modules')
+  * s3-bucket-dir: Second level bucket directory (eg: 'pipeline-cache')
+  * key: Third level bucket directory. Suggestion: use hashFiles() github function. eg: hashFiles('./yarn.lock')
+  * path: directory's path to cache eg: './node_modules')
 
 ### outputs:
 
