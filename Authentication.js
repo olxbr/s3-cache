@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 const core = require('@actions/core');
+import * as ASSUMEROLE_AWS from "@aws-sdk/client-sts";
 
 class Authentication {
   constructor(access_id, secret_key, region) {
@@ -17,6 +18,15 @@ class Authentication {
       process.env.AWS_SECRET_ACCESS_KEY = this.secret_key;
     }
     return AWS;
+  }
+
+  assumeRoleLogin(role) {
+    const client = new ASSUMEROLE_AWS.STS({ region: this.region });
+    const params = { "RoleArn":  role };
+    const data = await client.assumeRole(params);
+    this.access_id = data.access_id;
+    this.secret_key = data.secret_key;
+    this.login();
   }
 
   logout() {
