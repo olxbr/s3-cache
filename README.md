@@ -6,16 +6,17 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 
 ### inputs
 
-  * aws-id:
-  * aws-key: 
-  * s3-bucket-root: 
-  * bucket_dir:
-  * cache_key:
-  * dir-to-cache:
+  * aws-access-key-id: AWS Authentication Access Id (please inform it from Github secrets) eg: ${{ secrets.myAccessId }}
+  * aws-access-key:  AWS Authentication Secret Access Key (please inform it from Github secrets) eg: ${{ secrets.mySecretKey }}
+  * aws-role: AWS Role to assume 
+  * s3-bucket-root: eg: 'my-bucket-root' (No need for s3:// prefix)
+  * s3-bucket-dir: Second level bucket directory (eg: 'pipeline-cache')
+  * key: Third level bucket directory. Suggestion: use hashFiles() github function. eg: hashFiles('./yarn.lock')
+  * path: directory's path to cache eg: './node_modules')
 
 ### outputs:
 
-  * operation: retrieving / creation
+  * operation: retrieval / creation where retrieval is when there is a cache hit and creation when not
 
 ## Optional input and output arguments
   
@@ -23,18 +24,11 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 
   * aws-region: 'us-east-1'
   * zip-filename: 'cache.tar'
-  * dir-to-unzip: './'
+  * dir-to-unzip: './' - Only inform it if you need to unzip in a different path from where the cache was ziped
     
 ## Secrets the action uses
 
 None
-
-## Environment variables the action uses
-
-  * TEMP_AWS_ACCESS_KEY_ID - used to cache previous runner's aws access key id
-  * TEMP_AWS_SECRET_ACCESS_KEY - used to cache previous runner's aws secret access key
-  * AWS_ACCESS_KEY_ID 
-  * AWS_SECRET_ACCESS_KEY 
 
 ## An example of how to use your action in a workflow
 

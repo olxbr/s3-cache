@@ -17,16 +17,16 @@ class CacheOperation {
 
     retrieveCache() {
         return new Promise((resolve, reject) => {
-            this.s3Operation.pushFile().then((result) => {
+            this.s3Operation.pullFile().then((result) => {
                 console.log('Cache file downloaded');
                 this.zipOperation.unzipFile(`./${this.filename}`, this.dir_to_unzip).then((result) => {
                     console.log('Cache file unzipped');
                     this.lsDir(this.dir_to_cache);
-                    resolve({ "operation": "retrieving"});
+                    resolve({ "operation": "retrieval"});
                 }, function (err) {
                     console.log(`Error retrieving cache`);
                     core.error(`Error retrieving cache`);
-                    console.log(err); // Error: "It broke"
+                    console.log(err); 
                     reject(err);
                 })
             }, function (err) {
@@ -45,7 +45,7 @@ class CacheOperation {
         return new Promise((resolve, reject) => {
             this.zipOperation.zipFile(this.filename, this.dir_to_cache).then((result) => {
                 fs.readFile(this.filename, (err, fileData) => {
-                    this.s3Operation.pullFile(fileData).then((result) => {
+                    this.s3Operation.pushFile(fileData).then((result) => {
                         console.log(`file ${this.filename} uploaded`);
                         resolve();
                     }, function (err) {

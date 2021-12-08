@@ -3,28 +3,29 @@ description: 'Cache user specified directory to AWS S3'
 inputs:
   aws-id: # aws id
     description: 'aws id'
-    required: true
+    required: false
     default: ''
   aws-key: # aws key
     description: 'aws-key'
-    required: true
+    required: false
     default: ''
   aws-region: # region of aws
     description: 'aws region'
     required: false
     default: 'us-east-1'  
+  aws-role:
+    description: 'aws role to assume'
+    required: false
+    default: ''
   s3-bucket-root: # aws bucket
     description: 'aws bucket'
     required: true
-    default: ''
   bucket_dir:
     description: 'bucket diretory'
     required: true
-    default: ''
   cache_key:
     description: 'unique cache key'
     required: true
-    default: ''
   zip-filename:
     description: 'zip filename'
     required: false
@@ -32,14 +33,13 @@ inputs:
   dir-to-cache:
     description: 'relative directory to cache'
     required: true
-    default: 'node_modules/'
   dir-to-unzip:
     description: 'relative directory to unzip cache'
     required: false
     default: './'
 outputs:
   operation:
-    description: 'creation / retrieving'
+    description: 'creation / retrieval'
 runs:
   using: 'node12'
   main: 'index.js'
