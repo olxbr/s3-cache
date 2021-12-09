@@ -22,14 +22,9 @@ try {
 
   console.log('Input to variables OK')
   const auth = new Authentication(access_id, secret_key, region)
-  console.log('Index linha 25')
   auth.login(role, roleSessionName, externalId).then((connection) => {
-    console.log('Index linha 27')
 
     console.log('Connection OK');
-    console.log(process.env.AWS_ACCESS_KEY_ID);
-    console.log(process.env.AWS_SECRET_ACCESS_KEY);
-    console.log(process.env.AWS_SESSION_TOKEN);
 
     const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache, dir_to_unzip);
 
