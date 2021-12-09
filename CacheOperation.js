@@ -18,13 +18,10 @@ class CacheOperation {
     retrieveCache() {
         return new Promise((resolve, reject) => {
             this.s3Operation.pullFile().then((result) => {
-                console.log('Cache file downloaded');
                 this.zipOperation.unzipFile(`./${this.filename}`, this.dir_to_unzip).then((result) => {
-                    console.log('Cache file unzipped');
                     this.lsDir(this.dir_to_cache);
                     resolve({ "operation": "retrieval"});
                 }, function (err) {
-                    console.log(`Error retrieving cache`);
                     core.error(`Error retrieving cache`);
                     console.log(err); 
                     reject(err);
@@ -49,13 +46,11 @@ class CacheOperation {
                         console.log(`file ${this.filename} uploaded`);
                         resolve();
                     }, function (err) {
-                        console.log(`Error uploading cache file`);
                         console.log(err, err.stack); 
                         reject(err);
                     });
                 });
             }, function (err) {
-                console.log(`Error uploading cache file`);
                 console.log(err); 
                 core.err(err);
                 reject(err);

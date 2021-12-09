@@ -20,15 +20,10 @@ try {
   const dir_to_cache = core.getInput('dir-to-cache');
   const dir_to_unzip = core.getInput('dir-to-unzip');
 
-  console.log('Input to variables OK')
   const auth = new Authentication(access_id, secret_key, region)
   auth.login(role, roleSessionName, externalId).then((connection) => {
 
-    console.log('Connection OK');
-
     const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache, dir_to_unzip);
-
-    console.log('CacheOperation Object Created');
 
     cacheOperation.retrieveCache().then((result) => {
       console.log(`RESULT = ${result.operation}`);

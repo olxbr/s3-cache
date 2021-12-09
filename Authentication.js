@@ -31,6 +31,9 @@ class Authentication {
   backup_env_keys() {
     process.env.TEMP_AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID; 
     process.env.TEMP_AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+    if (process.env.AWS_SESSION_TOKEN) {
+      process.env.TEMP_AWS_SESSION_TOKEN = process.env.AWS_SESSION_TOKEN;
+    }
   }
 
   replace_env_keys() {
@@ -66,6 +69,10 @@ class Authentication {
     process.env.AWS_SECRET_ACCESS_KEY = process.env.TEMP_AWS_SECRET_ACCESS_KEY;
     process.env.TEMP_AWS_ACCESS_KEY_ID = null; 
     process.env.TEMP_AWS_SECRET_ACCESS_KEY = null;
+    if (process.env.TEMP_AWS_SESSION_TOKEN) {
+      process.env.AWS_SESSION_TOKEN = process.env.TEMP_AWS_SESSION_TOKEN;
+      process.env.TEMP_AWS_SESSION_TOKEN = null;
+    }
   }
 };
 
