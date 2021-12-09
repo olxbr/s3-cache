@@ -41,6 +41,8 @@ class Authentication {
     process.env.AWS_SECRET_ACCESS_KEY = this.secret_key;
     if (this.session_token) {
       process.env.AWS_SESSION_TOKEN = this.session_token;
+    } else {
+      process.env.AWS_SESSION_TOKEN = null
     }
   }
 
