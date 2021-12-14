@@ -20,11 +20,12 @@ try {
   const dir_to_cache = core.getInput('dir-to-cache');
   const dir_to_unzip = core.getInput('dir-to-unzip');
 
+  console.log(`index linha 23`);
   const auth = new Authentication(access_id, secret_key, region)
+  console.log(`index linha 25`);
   auth.login(role, roleSessionName, externalId).then((connection) => {
-
+    console.log(`index linha 27`);
     const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache, dir_to_unzip);
-
     cacheOperation.retrieveCache().then((result) => {
       console.log(`RESULT = ${result.operation}`);
       core.debug(`RESULT = ${result.operation}`);
