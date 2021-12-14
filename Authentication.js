@@ -12,6 +12,10 @@ class Authentication {
     this.session_token = null;
   }
 
+  static emptyConnector() {
+    return AWS;
+  }
+
   assumeRoleLogin(role, roleSessionName, externalId) {
     console.log(`Auth linha 16`);
     return new Promise((resolve, reject) => {

@@ -18,31 +18,39 @@ const dir_to_cache = core.getInput('dir-to-cache');
 
 const auth = new Authentication(access_id, secret_key, region)
 
-try {
-    auth.login(role, roleSessionName, externalId).then((connection) => {
-        try {
-            var operation = core.getState("operation");
-            console.log(`OPERATION ${operation}`);
-            if (operation == 'creation') {
-                const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache);
-                cacheOperation.generateCache().then((result) => {
-                    core.info('Cache generation succeded');
-                    auth.logout();
-                  }, function (err) {
-                    core.error(err);
-                    auth.logout();
-                    core.setFailed(err);
-                  })
-            } else {
-                core.info('Cache was found. No need for a new cache creation.');
+function cacheCleanUp(connection) {
+    try {
+        var operation = core.getState("operation");
+        console.log(`OPERATION ${operation}`);
+        if (operation == 'creation') {
+            const cacheOperation = new CacheOperation(connection, bucket_root, bucket_dir, cache_key, filename, dir_to_cache);
+            cacheOperation.generateCache().then((result) => {
+                core.info('Cache generation succeded');
                 auth.logout();
-            }
-        } catch (err) {
-            core.error(err);
+            }, function (err) {
+                core.error(err);
+                auth.logout();
+                core.setFailed(err);
+            })
+        } else {
+            core.info('Cache was found. No need for a new cache creation.');
             auth.logout();
-            core.setFailed(err);
         }
-    })
+    } catch (err) {
+        core.error(err);
+        auth.logout();
+        core.setFailed(err);
+    }
+}
+
+try {
+    if (access_id != '') {
+        auth.login(role, roleSessionName, externalId).then((connection) => {
+            cacheCleanUp(connection)
+        })
+    } else {
+        connection = Authentication.emptyConnector()
+    }
 } catch (error) {
     core.error(error);
     auth.logout();
