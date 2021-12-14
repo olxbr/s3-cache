@@ -41,43 +41,46 @@ class Authentication {
     process.env.TEMP_AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID; 
     process.env.TEMP_AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
     if (process.env.AWS_SESSION_TOKEN) {
+      console.log(`Auth linha 44`);
       process.env.TEMP_AWS_SESSION_TOKEN = process.env.AWS_SESSION_TOKEN;
-    }
+    } 
   }
 
   replace_env_keys() {
-    console.log(`Auth linha 49`);
+    console.log(`Auth linha 50`);
     process.env.AWS_ACCESS_KEY_ID = this.access_id;
     process.env.AWS_SECRET_ACCESS_KEY = this.secret_key;
     if (this.session_token) {
+      console.log(`Auth linha 54`);
       process.env.AWS_SESSION_TOKEN = this.session_token;
     } else {
+      console.log(`Auth linha 57`);
       process.env.AWS_SESSION_TOKEN = null
     }
   }
 
   login(role, roleSessionName, externalId) {
-    console.log(`Auth linha 60`);
+    console.log(`Auth linha 63`);
     return new Promise((resolve, reject) => {
-      console.log(`Auth linha 62`);
+      console.log(`Auth linha 65`);
       if (!this.connection) {
-        console.log(`Auth linha 64`);
+        console.log(`Auth linha 67`);
         this.backup_env_keys();
         this.replace_env_keys();
         if (role) {
-          console.log(`Auth linha 68`);
+          console.log(`Auth linha 71`);
           this.assumeRoleLogin(role, roleSessionName, externalId).then(() => {
-            console.log(`Auth linha 70`);
+            console.log(`Auth linha 73`);
             this.connection = AWS;
             resolve(this.connection);
           })
         } else {
-          console.log(`Auth linha 75`);
+          console.log(`Auth linha 78`);
           this.connection = AWS;
           resolve(this.connection);
         }
       } else {
-        console.log(`Auth linha 80`);
+        console.log(`Auth linha 83`);
        resolve(this.connection);
      }
     })
