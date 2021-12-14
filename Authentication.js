@@ -65,6 +65,8 @@ class Authentication {
       console.log(`Auth linha 65`);
       if (!this.connection) {
         console.log(`Auth linha 67`);
+        this.backup_env_keys();
+        this.replace_env_keys();
         if (role) {
           console.log(`Auth linha 71`);
           this.assumeRoleLogin(role, roleSessionName, externalId).then(() => {
@@ -73,8 +75,6 @@ class Authentication {
             resolve(this.connection);
           })
         } else {
-          this.backup_env_keys();
-          this.replace_env_keys();
           console.log(`Auth linha 78`);
           this.connection = AWS;
           resolve(this.connection);
