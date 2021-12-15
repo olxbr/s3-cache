@@ -31,7 +31,7 @@ inputs:
   bucket-dir:
     description: 'bucket diretory'
     required: true
-  cache_key:
+  cache-key:
     description: 'unique cache key'
     required: true
   zip-filename:

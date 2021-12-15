@@ -13,7 +13,7 @@ This action will cache an user specified directory to a remote AWS S3 bucket
   * aws-role-external-id: Assumed role external id (Optional)
   * s3-bucket-root: eg: 'my-bucket-root' (No need for s3:// prefix)
   * bucket-dir: Second level bucket directory (eg: 'pipeline-cache')
-  * cache_key: Third level bucket directory. Suggestion: use hashFiles() github function. eg: hashFiles('./yarn.lock')
+  * cache-key: Third level bucket directory. Suggestion: use hashFiles() github function. eg: hashFiles('./yarn.lock')
   * dir-to-cache: directory's path to cache eg: './node_modules')
   * aws-region: 'us-east-1' (Optional)
   * zip-filename: 'cache.tar' (Optional)
@@ -30,6 +30,6 @@ This action will cache an user specified directory to a remote AWS S3 bucket
     with:
       s3-bucket-root: "pipelinecache"   
       bucket-dir: "github-cache"
-      cache_key: build-${{ runner.os }}-cache-yarn-modules-${{ hashFiles('yarn.lock') }}
+      cache-key: build-${{ runner.os }}-cache-yarn-modules-${{ hashFiles('yarn.lock') }}
       dir-to-cache: 'node_modules' 
 ```

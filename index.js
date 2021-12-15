@@ -16,7 +16,7 @@ try {
   const bucket_root = core.getInput('s3-bucket-root');
   const filename = core.getInput('zip-filename');
   const bucket_dir = core.getInput('bucket-dir');
-  const cache_key = core.getInput('cache_key');
+  const cache_key = core.getInput('cache-key');
   const dir_to_cache = core.getInput('dir-to-cache');
   const dir_to_unzip = core.getInput('dir-to-unzip');
 
