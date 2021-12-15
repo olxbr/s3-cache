@@ -37,22 +37,16 @@ try {
     })
   }
 
-  console.log(`index linha 40`);
   const auth = new Authentication(access_id, secret_key, region)
-  console.log(`index linha 42`);
   console.log(access_id);
   if (access_id != '' && access_id) {
-    console.log(`index linha 45`);
     auth.login(role, roleSessionName, externalId).then((connection) => {
-      console.log(`index linha 47`);
       cacheAction(connection);
     })
   } else {
-    console.log(`index linha 51`);
     cacheAction(Authentication.emptyConnector());
   }
 } catch (error) {
-  console.log(`index linha 55`);
   core.saveState("operation", "failed")
   core.setFailed(error);
   console.log(error);
