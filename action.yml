@@ -28,7 +28,7 @@ inputs:
   s3-bucket-root: # aws bucket
     description: 'aws bucket'
     required: true
-  bucket_dir:
+  bucket-dir:
     description: 'bucket diretory'
     required: true
   cache_key:

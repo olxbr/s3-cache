@@ -12,7 +12,7 @@ const externalId = core.getInput('aws-role-external-id');
 
 const bucket_root = core.getInput('s3-bucket-root');
 const filename = core.getInput('zip-filename');
-const bucket_dir = core.getInput('bucket_dir');
+const bucket_dir = core.getInput('bucket-dir');
 const cache_key = core.getInput('cache_key');
 const dir_to_cache = core.getInput('dir-to-cache');
 
