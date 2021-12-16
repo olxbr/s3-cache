@@ -6,46 +6,28 @@ This action will cache an user specified directory to a remote AWS S3 bucket
 
 ### inputs
 
-  * aws-id:
-  * aws-key: 
-  * s3-bucket-root: 
-  * bucket_dir:
-  * cache_key:
-  * dir-to-cache:
+  * s3-bucket-root: eg: 'my-bucket-root' (No need for s3:// prefix)
+  * bucket-dir: Second level bucket directory (eg: 'pipeline-cache')
+  * cache-key: Third level bucket directory. Suggestion: use hashFiles() github function. eg: hashFiles('./yarn.lock')
+  * dir-to-cache: directory's path to cache eg: './node_modules')
+  * zip-filename: 'cache.tar' (Optional)
+  * dir-to-unzip: './' - Only inform it if you need to unzip in a different path from where the cache was ziped (Optional)
 
 ### outputs:
 
-  * operation: retrieving / creation
+  * operation: retrieval / creation where retrieval is when there is a cache hit and creation when not    
 
-## Optional input and output arguments
-  
-### inputs
+## AWS Credentials / Login
 
-  * aws-region: 'us-east-1'
-  * zip-filename: 'cache.tar'
-  * dir-to-unzip: './'
-    
-## Secrets the action uses
-
-None
-
-## Environment variables the action uses
-
-  * TEMP_AWS_ACCESS_KEY_ID - used to cache previous runner's aws access key id
-  * TEMP_AWS_SECRET_ACCESS_KEY - used to cache previous runner's aws secret access key
-  * AWS_ACCESS_KEY_ID 
-  * AWS_SECRET_ACCESS_KEY 
+In order to execute with the proper user or role, we recommend you to call the official configure-aws-credentials github action just before s3-cache.
 
 ## An example of how to use your action in a workflow
 
 ```
   - uses: olxbr/s3-cache@v1.0
     with:
-      aws-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
       s3-bucket-root: "pipelinecache"   
-      bucket_dir: "github-cache"
-      cache_key: build-${{ runner.os }}-cache-yarn-modules-${{ hashFiles('yarn.lock') }}
-      zip-filename: 'custom_cache.tar'
+      bucket-dir: "github-cache"
+      cache-key: build-${{ runner.os }}-cache-yarn-modules-${{ hashFiles('yarn.lock') }}
       dir-to-cache: 'node_modules' 
 ```

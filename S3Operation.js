@@ -11,7 +11,7 @@ class S3Operation {
     this.s3 = new this.AWS_SDK.S3();
   }
 
-  pushFile() {
+  pullFile() {
     var params = {
       Bucket: this.bucket,
       Key: this.key
@@ -60,7 +60,7 @@ class S3Operation {
     })
   }
 
-  pullFile(fileData) {
+  pushFile(fileData) {
     return new Promise((resolve, reject) => {
       this.s3.putObject({
         Bucket: `${this.bucket}`,
